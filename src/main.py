@@ -3,6 +3,9 @@ import click
 import os
 import toml
 
+MAJOR_VERSION = 0
+MINOR_VERSION = 0
+BUILD_VERSION = os.environ.get("BUILD_VERSION", "DEV")
 
 def show_all(file_txt):
     a = file_txt.read()
@@ -30,9 +33,7 @@ def remove_blanks(file_txt):
 
 
 def pycat_version():
-    with open('pyproject.toml', 'r') as f:
-        config = toml.load(f)
-        click.echo(config['project']['version'])
+    return f"{MAJOR_VERSION}.{MINOR_VERSION}.{BUILD_VERSION}"
 
 
 def print_until_function(file_txt, line, number_blank):

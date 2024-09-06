@@ -1,0 +1,5 @@
+.idea
+gepcat.egg-info
+venv
+dist
+tst/assets/huge.txt

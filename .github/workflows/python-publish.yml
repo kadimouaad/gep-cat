@@ -9,8 +9,9 @@
 name: Upload Python Package
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -22,6 +23,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Set env
+      run: echo "${{ github.run_id }}" >> $BUILD_VERSION
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
