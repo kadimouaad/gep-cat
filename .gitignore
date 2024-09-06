@@ -3,3 +3,4 @@ gepcat.egg-info
 venv
 dist
 tst/assets/huge.txt
+**/__pycache__

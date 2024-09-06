@@ -16,8 +16,11 @@ test = [
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools.packages]
-find = {}  # Scan the project directory with the default parameters
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["*"]  # ["*"] by default
+exclude = []  # empty by default
+namespaces = true  # true by default
 
 [project.scripts]
-gepcat = "src.main:pycat"
+gepcat = "gepcat:pycat"

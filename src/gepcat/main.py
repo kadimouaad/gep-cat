@@ -3,7 +3,7 @@ import click
 import os
 import toml
 
-from src import __version__
+from ._version import __version__
 
 def show_all(file_txt):
     a = file_txt.read()

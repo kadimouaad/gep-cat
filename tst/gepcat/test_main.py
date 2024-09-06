@@ -1,10 +1,7 @@
-import os
-import string
-import pytest
 from click.testing import CliRunner
-from docutils.parsers.rst.directives import encoding
-from src.main import pycat
-from random import randbytes, choice
+from gepcat import pycat
+from random import randbytes
+
 
 def abstraction_runner(cli, args):
     runner = CliRunner()
@@ -33,7 +30,7 @@ def test_file_not_found():
     assert result.output == "File not found\n"
 
 def test_binary_file():
-    with open('assets/temporary.dat', "wb") as file:
+    with open('../assets/temporary.dat', "wb") as file:
         result = abstraction_runner(pycat, ['assets/temporary.dat'])
         expected = randbytes(10)
         file.write(expected)
