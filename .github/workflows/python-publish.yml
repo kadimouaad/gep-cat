@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set env
-      run: echo "${{ github.run_id }}" >> $BUILD_VERSION
+      run: BUILD_VERSION="${{ github.run_id }}"
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
