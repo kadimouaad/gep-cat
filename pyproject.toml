@@ -5,6 +5,9 @@ dependencies = [
     "click",
     "toml",
 ]
+readme = "README.md"  
+long_description_content_type = "text/markdown"  
+
 [project.optional-dependencies]
 test = [
     "pytest==6.2.5",
