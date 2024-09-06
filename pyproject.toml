@@ -6,7 +6,7 @@ dependencies = [
     "toml",
 ]
 readme = "README.md"  
-long_description_content_type = "text/markdown"  
+long_description_content_type = "text/x-rst"  
 
 [project.optional-dependencies]
 test = [
