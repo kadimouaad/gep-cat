@@ -3,9 +3,7 @@ import click
 import os
 import toml
 
-MAJOR_VERSION = 0
-MINOR_VERSION = 0
-BUILD_VERSION = os.environ.get("BUILD_VERSION", "DEV")
+from src import __version__
 
 def show_all(file_txt):
     a = file_txt.read()
@@ -30,11 +28,6 @@ def remove_blanks(file_txt):
     for line in lines:
         if line.strip():
             click.echo(line.strip().decode('utf-8'))
-
-
-def pycat_version():
-    return f"{MAJOR_VERSION}.{MINOR_VERSION}.{BUILD_VERSION}"
-
 
 def print_until_function(file_txt, line, number_blank):
     lines = file_txt.readlines()
@@ -71,7 +64,8 @@ def cli():
 @click.option('--remove-blank', '-R', is_flag=True, default=False, help='remove blank lines')
 def pycat(file_txt, line, print_until, number_blank, show_ends, version, remove_blank):
     if version:
-        pycat_version()
+        click.echo(__version__)
+        return
 
     for file in file_txt:
         abs_path = os.path.abspath(file)
