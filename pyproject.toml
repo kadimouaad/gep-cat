@@ -1,6 +1,7 @@
 [project]
 name = "gepcat"
 version = "1.0.0"
+readme = "README.md"
 dependencies = [
     "click",
     "toml",
