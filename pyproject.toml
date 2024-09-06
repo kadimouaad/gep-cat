@@ -6,8 +6,6 @@ dependencies = [
     "click",
     "toml",
 ]
-readme = "README.md"  
-long_description_content_type = "text/x-rst"  
 
 [project.optional-dependencies]
 test = [
