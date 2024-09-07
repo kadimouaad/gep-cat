@@ -1,37 +1,41 @@
-from click.testing import CliRunner
+import os
+from click.testing import CliRunner, Result
 from gepcat import pycat
 from random import randbytes
 
 
-def abstraction_runner(cli, args):
+def abstraction_runner(args):
     runner = CliRunner()
-    result = runner.invoke(cli, args)
+    result = runner.invoke(pycat, args)
     return result
 
+
 def test_file_single_line():
-    result = abstraction_runner(pycat,['assets/multiple_lines.txt'])
+    result = abstraction_runner(['assets/multiple_lines.txt'])
     assert result.exit_code == 0
-    assert result.output == "Test\n"
+    assert result.output == "Line1\nLine2\n\nLine3\n\nLine4\nLine5\nLine6\n"
 
 def test_empty_file():
-    result = abstraction_runner(pycat,['assets/empty_file.txt'])
+    result = abstraction_runner(['assets/empty_file.txt'])
     print('type', type(result))
     assert result.exit_code == 0
     assert result.output == "\n"
 
 def test_file_multiple_lines():
-    result = abstraction_runner(pycat,['assets/multiple_lines.txt'])
+    result = abstraction_runner(['assets/multiple_lines.txt'])
     assert result.exit_code == 0
-    assert result.output == "Line1\nLine2\n"
+    assert result.output == "Line1\nLine2\n\nLine3\n\nLine4\nLine5\nLine6\n"
 
 def test_file_not_found():
-    result = abstraction_runner(pycat, ['assets/not_found.txt'])
+    result = abstraction_runner(['assets/not_found.txt'])
     assert result.exit_code == 1
     assert result.output == "File not found\n"
 
 def test_binary_file():
-    with open('../assets/temporary.dat', "wb") as file:
-        result = abstraction_runner(pycat, ['assets/temporary.dat'])
+
+    os.getcwd()
+    with open('tst/assets/temporary.dat', "wb") as file:
+        result = abstraction_runner(['tst/assets/temporary.dat'])
         expected = randbytes(10)
         file.write(expected)
         file.flush()
@@ -59,26 +63,26 @@ def test_binary_file():
 #         # os.remove('assets/huge.txt')
 #
 def test_print_line():
-    result = abstraction_runner(pycat, ['assets/single_file.txt', '-l 1'])
+    result = abstraction_runner(['assets/single_file.txt', '-l 1'])
     assert result.exit_code == 0
-    assert result.output == "hello"
+    assert result.output == "1 txt\n\n"
 
 def test_print_until():
-    result = abstraction_runner(pycat, ['assets/multiple_lines.txt', '-l 2', '-p'])
+    result = abstraction_runner(['assets/multiple_lines.txt', '-l 2', '-p'])
     assert result.exit_code == 0
-    assert result.output == "number line"
+    assert result.output == "1: Line1\n2: Line2\n\n"
 
 def test_show_end():
-    result = abstraction_runner(pycat, ['assets/single_file.txt', '-E'])
+    result = abstraction_runner(['assets/single_file.txt', '-E'])
     assert result.exit_code == 0
     assert result.output == "txt $\nhello $\n\n"
 
 def test_number_lines():
-    result = abstraction_runner(pycat, ['assets/single_file.txt', '-n'])
+    result = abstraction_runner(['assets/single_file.txt', '-n'])
     assert result.exit_code == 0
-    assert result.output == "number line\n"
+    assert result.output == "1: txt\n2: hello\n"
 
 def test_remove_blank_line():
-    result = abstraction_runner(pycat, ['assets/multiple_lines.txt', '-R'])
+    result = abstraction_runner(['assets/multiple_lines.txt', '-R'])
     assert result.exit_code == 0
     assert result.output == "Line1\nLine2\nLine3\nLine4\nLine5\nLine6\n\n"
